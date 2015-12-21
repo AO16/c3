@@ -128,7 +128,7 @@ function c3_axis(d3, params) {
                 function split(splitted, text) {
                     spaceIndex = undefined;
                     for (var i = 1; i < text.length; i++) {
-                        if (text.charAt(i) === ' ') {
+                        if (text.charAt(i) === '-') {
                             spaceIndex = i;
                         }
                         subtext = text.substr(0, i + 1);
