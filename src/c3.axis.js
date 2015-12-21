@@ -247,11 +247,11 @@ function c3_axis(d3, params) {
                 {
                     tickTransform = axisY;
                     lineEnter.attr("x2", innerTickSize);
-                    textEnter.attr("x", tickLength);
+                    textEnter.attr("x", 0);
                     lineUpdate.attr("x2", innerTickSize).attr("y2", 0);
-                    textUpdate.attr("x", tickLength).attr("y", 0);
+                    textUpdate.attr("x", 0).attr("y", 0);
                     text.style("text-anchor", "start");
-                    tspan.attr('x', tickLength).attr("dy", tspanDy);
+                    tspan.attr('x', 0).attr("dy", 6);
                     pathUpdate.attr("d", "M" + outerTickSize + "," + range[0] + "H0V" + range[1] + "H" + outerTickSize);
                     break;
                 }

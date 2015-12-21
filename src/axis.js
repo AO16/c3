@@ -213,7 +213,7 @@ Axis.prototype.xForXAxisLabel = function xForXAxisLabel() {
     return this.xForAxisLabel(!this.owner.config.axis_rotated, this.getXAxisLabelPosition());
 };
 Axis.prototype.xForYAxisLabel = function xForYAxisLabel() {
-    return this.xForAxisLabel(this.owner.config.axis_rotated, this.getYAxisLabelPosition());
+    return 0;
 };
 Axis.prototype.xForY2AxisLabel = function xForY2AxisLabel() {
     return this.xForAxisLabel(this.owner.config.axis_rotated, this.getY2AxisLabelPosition());
