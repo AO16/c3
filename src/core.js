@@ -171,8 +171,8 @@ c3_chart_internal_fn.initParams = function () {
 };
 
 c3_chart_internal_fn.initChartElements = function () {
-    if (this.initBar) { this.initBar(); }
     if (this.initLine) { this.initLine(); }
+    if (this.initBar) { this.initBar(); }
     if (this.initArc) { this.initArc(); }
     if (this.initGauge) { this.initGauge(); }
     if (this.initText) { this.initText(); }
@@ -287,6 +287,9 @@ c3_chart_internal_fn.initWithData = function (data) {
     // Grids
     $$.initGrid();
 
+    // Add Axis
+    $$.axis.init();
+
     // Define g for chart area
     main.append('g')
         .attr("clip-path", $$.clipPath)
@@ -312,9 +315,6 @@ c3_chart_internal_fn.initWithData = function (data) {
 
     // Set default extent if defined
     if (config.axis_x_extent) { $$.brush.extent($$.getDefaultExtent()); }
-
-    // Add Axis
-    $$.axis.init();
 
     // Set targets
     $$.updateTargets($$.data.targets);
@@ -766,7 +766,7 @@ c3_chart_internal_fn.getTranslate = function (target) {
         x = 0;
         y = config.axis_rotated ? 0 : $$.height;
     } else if (target === 'y') {
-        x = 0;
+        x = window.innerWidth/2;
         y = config.axis_rotated ? $$.height : 0;
     } else if (target === 'y2') {
         x = config.axis_rotated ? 0 : $$.width;
