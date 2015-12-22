@@ -176,8 +176,8 @@
     };
 
     c3_chart_internal_fn.initChartElements = function () {
-        if (this.initBar) { this.initBar(); }
         if (this.initLine) { this.initLine(); }
+        if (this.initBar) { this.initBar(); }
         if (this.initArc) { this.initArc(); }
         if (this.initGauge) { this.initGauge(); }
         if (this.initText) { this.initText(); }
@@ -292,6 +292,9 @@
         // Grids
         $$.initGrid();
 
+        // Add Axis
+        $$.axis.init();
+
         // Define g for chart area
         main.append('g')
             .attr("clip-path", $$.clipPath)
@@ -317,9 +320,6 @@
 
         // Set default extent if defined
         if (config.axis_x_extent) { $$.brush.extent($$.getDefaultExtent()); }
-
-        // Add Axis
-        $$.axis.init();
 
         // Set targets
         $$.updateTargets($$.data.targets);
@@ -771,7 +771,7 @@
             x = 0;
             y = config.axis_rotated ? 0 : $$.height;
         } else if (target === 'y') {
-            x = 0;
+            x = window.innerWidth/2;
             y = config.axis_rotated ? $$.height : 0;
         } else if (target === 'y2') {
             x = config.axis_rotated ? 0 : $$.width;
@@ -3271,7 +3271,7 @@
     };
     c3_chart_internal_fn.redrawBar = function (drawBar, withTransition) {
         return [
-            (withTransition ? this.mainBar.transition(Math.random().toString()) : this.mainBar)
+            (withTransition ? this.mainBar.transition(Math.random().toString()).delay(500) : this.mainBar)
                 .attr('d', drawBar)
                 .style("fill", this.color)
                 .style("opacity", 1)
@@ -4531,7 +4531,7 @@
         return this.xForAxisLabel(!this.owner.config.axis_rotated, this.getXAxisLabelPosition());
     };
     Axis.prototype.xForYAxisLabel = function xForYAxisLabel() {
-        return this.xForAxisLabel(this.owner.config.axis_rotated, this.getYAxisLabelPosition());
+        return 0;
     };
     Axis.prototype.xForY2AxisLabel = function xForY2AxisLabel() {
         return this.xForAxisLabel(this.owner.config.axis_rotated, this.getY2AxisLabelPosition());
@@ -7068,7 +7068,7 @@
                     function split(splitted, text) {
                         spaceIndex = undefined;
                         for (var i = 1; i < text.length; i++) {
-                            if (text.charAt(i) === ' ') {
+                            if (text.charAt(i) === '-') {
                                 spaceIndex = i;
                             }
                             subtext = text.substr(0, i + 1);
@@ -7187,11 +7187,11 @@
                     {
                         tickTransform = axisY;
                         lineEnter.attr("x2", innerTickSize);
-                        textEnter.attr("x", tickLength);
+                        textEnter.attr("x", 0);
                         lineUpdate.attr("x2", innerTickSize).attr("y2", 0);
-                        textUpdate.attr("x", tickLength).attr("y", 0);
+                        textUpdate.attr("x", 0).attr("y", 0);
                         text.style("text-anchor", "start");
-                        tspan.attr('x', tickLength).attr("dy", tspanDy);
+                        tspan.attr('x', 0).attr("dy", 6);
                         pathUpdate.attr("d", "M" + outerTickSize + "," + range[0] + "H0V" + range[1] + "H" + outerTickSize);
                         break;
                     }
